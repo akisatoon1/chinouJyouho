@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "課題入力",
+    "description": "過去の小テストの提出データを保存し、新しいフォームに入力する",
+    "version": "0.0.0",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "scripting",
+        "activeTab",
+        "storage"
+    ]
+}
