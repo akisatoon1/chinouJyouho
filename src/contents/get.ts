@@ -48,8 +48,3 @@ function saveToStorage(data: input[]): void {
         alert("ストレージに保存しました");
     });
 }
-
-// 小テストのデータを取得し、local storageに保存する
-saveToStorage(get());
-
-console.log("get.js loaded.")
