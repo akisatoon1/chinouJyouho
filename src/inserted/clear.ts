@@ -1,3 +1,5 @@
+import { clear, preserve } from "../modules/test"
+
 // 元の入力を削除し、保存する
 clear();
 alert("データをクリアしました")
