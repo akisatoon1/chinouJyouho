@@ -1,6 +1,9 @@
 {
   "devDependencies": {
     "@types/chrome": "^0.0.315",
-    "typescript": "^5.8.3"
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.6",
+    "webpack-cli": "^6.0.1"
   }
 }
