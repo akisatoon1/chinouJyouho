@@ -2,7 +2,7 @@
  * 小テストのページに関する操作を行う
  */
 
-import { input, TypeText, TypeOption } from "./general"
+import { input, TypeText, TypeSelect } from "./general"
 export { get, insert, clear, preserve }
 
 // 小テストの既に入力されている値を取得する
@@ -43,8 +43,11 @@ function get(): input[] {
         const qid: string = ipt.name;
         inputs.push({
             qid: qid,
-            type: TypeOption,
-            value: selectedEle.value
+            type: TypeSelect,
+            option: {
+                isSelected: true,
+                value: selectedEle.value
+            }
         })
     }
     return inputs;
@@ -71,12 +74,13 @@ function insert(data: input[]): void {
                 inputEle.value = ipt.text as string;
                 break;
 
-            case TypeOption:
+            case TypeSelect:
                 // select要素を見つける
                 const selectEle: HTMLSelectElement = test.querySelector(selector) as HTMLSelectElement;
 
                 // 選択された選択肢を入力する
-                const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${ipt.value}']`) as HTMLOptionElement;
+                const option: { isSelected: boolean, value: string } = ipt.option as { isSelected: boolean, value: string };
+                const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${option.value}']`) as HTMLOptionElement;
                 optionEle.setAttribute("selected", "null");
                 break;
         }

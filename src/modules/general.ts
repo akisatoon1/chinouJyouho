@@ -2,12 +2,12 @@
  * moduleで使う共通の型や値をまとめている
  */
 
-export { TypeText, TypeOption, StorageKey, input, storageData }
+export { TypeText, TypeSelect, StorageKey, input, storageData }
 
 // 入力の種類を定義する
 // ex) textarea, select, etc
 const TypeText: string = "text";
-const TypeOption: string = "option";
+const TypeSelect: string = "select";
 
 // local storageのキー
 const StorageKey: string = "test";
@@ -15,9 +15,12 @@ const StorageKey: string = "test";
 // ページ内のinputタグを見つけて, 値を入力するため
 interface input {
     qid: string,
-    type: string,   // "string" or "option"
-    text?: string,  // if text == "string"
-    value?: string  // if text == "option"
+    type: string,    // "text" or "select"
+    text?: string,   // if type == "text"
+    option?: {       // if type == "select"
+        isSelected: boolean,
+        value: string
+    }
 }
 
 // local storage内でのデータ形式
