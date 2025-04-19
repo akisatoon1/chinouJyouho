@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "課題入力",
-    "description": "過去の小テストの提出データを保存し、新しいフォームに入力する",
-    "version": "0.0.0",
+    "name": "manaba小テスト入力",
+    "description": "過去の小テストの提出データを保存し、新しいフォームに入力します. 知能情報学の練習用小テストでの提出済みの答えをコピーして、提出用小テストの答えを自動で入力します.",
+    "version": "0.0.1",
     "action": {
         "default_popup": "popup.html"
     },
