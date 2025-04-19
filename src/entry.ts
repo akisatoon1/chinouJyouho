@@ -1,5 +1,5 @@
 function realPath(path: string) {
-    const prefix: string = "js/contents";
+    const prefix: string = "js/inserted/";
     return `${prefix}${path}`;
 }
 
@@ -13,7 +13,7 @@ buttonGet.addEventListener("click", async () => {
     chrome.scripting
         .executeScript({
             target: { tabId: tabId },
-            files: [realPath("/general.js"), realPath("/get.js")],
+            files: [realPath("get.js")],
         })
 });
 
@@ -23,7 +23,7 @@ buttonInsert.addEventListener("click", async () => {
     chrome.scripting
         .executeScript({
             target: { tabId: tabId },
-            files: [realPath("/general.js"), realPath("/insert.js")],
+            files: [realPath("insert.js")],
         })
 });
 
@@ -33,7 +33,7 @@ buttonClear.addEventListener("click", async () => {
     chrome.scripting
         .executeScript({
             target: { tabId: tabId },
-            files: [realPath("/general.js"), realPath("/clear.js")],
+            files: [realPath("clear.js")],
         })
 });
 
