@@ -30,26 +30,33 @@ function get(): input[] {
 
     // 選択された選択肢をあつめる
     for (const ipt of selectInputEles) {
-        // 選択されたoption要素を取得する
-        // 何も選択されていない場合は入力データに含まない
         const selectedEle: HTMLOptionElement | null = ipt.querySelector("option[selected]");
-        if (selectedEle === null) continue;
-        /**
-         * 
-         * 選んでいないという選択も保存すべき
-         * 
-         */
 
-        const qid: string = ipt.name;
-        inputs.push({
-            qid: qid,
-            type: TypeSelect,
-            option: {
-                isSelected: true,
-                value: selectedEle.value
-            }
-        })
+        // 選択されたoption要素が存在しない場合は、選択されていないという選択を入力データに含める
+        if (selectedEle === null) {
+            inputs.push({
+                qid: ipt.name,
+                type: TypeSelect,
+                option: {
+                    isSelected: false,
+                    value: ""
+                }
+            });
+        }
+
+        // 選択されたoption要素が存在する場合は、その選択肢を入力データに含める
+        else {
+            inputs.push({
+                qid: ipt.name,
+                type: TypeSelect,
+                option: {
+                    isSelected: true,
+                    value: selectedEle.value
+                }
+            });
+        }
     }
+
     return inputs;
 }
 
@@ -78,10 +85,20 @@ function insert(data: input[]): void {
                 // select要素を見つける
                 const selectEle: HTMLSelectElement = test.querySelector(selector) as HTMLSelectElement;
 
-                // 選択された選択肢を入力する
+                // TypeSelectの場合はoptionフィールドが存在する
                 const option: { isSelected: boolean, value: string } = ipt.option as { isSelected: boolean, value: string };
-                const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${option.value}']`) as HTMLOptionElement;
-                optionEle.setAttribute("selected", "null");
+
+                // 選択された選択肢があるならば、その選択肢を選択する
+                if (option.isSelected) {
+                    const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${option.value}']`) as HTMLOptionElement;
+                    optionEle.setAttribute("selected", "null");
+                }
+
+                // 選択された選択肢がないならば、選択を取り消す
+                else {
+                    const optionEle: HTMLOptionElement | null = selectEle.querySelector(`option[selected]`);
+                    if (optionEle !== null) optionEle.removeAttribute("selected");
+                }
                 break;
         }
     }
