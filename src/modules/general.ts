@@ -2,7 +2,7 @@
  * moduleで使う共通の型や値をまとめている
  */
 
-export { TypeText, TypeSelect, Input, TextInput, SelectInput, storageData, ErrorInvalidPage }
+export { TypeText, TypeSelect, TypeOl, Input, TextInput, SelectInput, OlInput, storageData, ErrorInvalidPage }
 
 // エラー定義
 const ErrorInvalidPage: Error = new Error("Invalid page");
@@ -17,6 +17,7 @@ const ErrorInvalidPage: Error = new Error("Invalid page");
 // ex) textarea, select, etc
 const TypeText = "text";
 const TypeSelect = "select";
+const TypeOl = "ol";
 
 // 入力要素は全てqidで識別される
 interface BaseInput {
@@ -39,7 +40,16 @@ interface SelectInput extends BaseInput {
     }
 }
 
-type Input = TextInput | SelectInput
+// ol要素
+interface OlInput extends BaseInput {
+    type: typeof TypeOl,
+    radio: {
+        isSelected: boolean,
+        value: string
+    }
+}
+
+type Input = TextInput | SelectInput | OlInput
 
 // local storage内でのデータ形式
 interface storageData {
