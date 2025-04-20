@@ -116,12 +116,9 @@ function insert(data: Input[]): void {
                 // select要素を見つける
                 const selectEle: HTMLSelectElement = test.querySelector(selector) as HTMLSelectElement;
 
-                // TypeSelectの場合はoptionフィールドが存在する
-                const option: { isSelected: boolean, value: string } = ipt.option as { isSelected: boolean, value: string };
-
                 // 選択された選択肢があるならば、その選択肢を選択する
-                if (option.isSelected) {
-                    const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${option.value}']`) as HTMLOptionElement;
+                if (ipt.option.isSelected) {
+                    const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${ipt.option.value}']`) as HTMLOptionElement;
                     optionEle.setAttribute("selected", "null");
                 }
 
@@ -137,12 +134,9 @@ function insert(data: Input[]): void {
                 // ここではidを使って探す
                 const olEle: HTMLOListElement = test.querySelector(`#${ipt.qid}`) as HTMLOListElement;
 
-                // TypeOlの場合はradioフィールドが存在する
-                const radio: { isSelected: boolean, value: string } = ipt.radio as { isSelected: boolean, value: string };
-
                 // 選択された選択肢があるならば、その選択肢を選択する
-                if (radio.isSelected) {
-                    const radioEle: HTMLInputElement = olEle.querySelector(`input[type='radio'][value='${radio.value}']`) as HTMLInputElement;
+                if (ipt.radio.isSelected) {
+                    const radioEle: HTMLInputElement = olEle.querySelector(`input[type='radio'][value='${ipt.radio.value}']`) as HTMLInputElement;
                     radioEle.setAttribute("checked", "null");
                 }
 
