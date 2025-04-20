@@ -10,9 +10,7 @@ async function getFromStorage(): Promise<Input[]> {
     return result.test;
 }
 
-function saveToStorage(data: Input[]): void {
+async function saveToStorage(data: Input[]): Promise<void> {
     const setData: storageData = { test: data };
-    chrome.storage.local.set(setData).then(() => {
-        alert("ストレージに保存しました");
-    });
+    await chrome.storage.local.set(setData);
 }
