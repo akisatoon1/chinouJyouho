@@ -14,7 +14,7 @@ function get(): Input[] {
 
     const textInputEles: NodeListOf<HTMLInputElement> = test.querySelectorAll("input.queryinput");
     const selectInputEles: NodeListOf<HTMLSelectElement> = test.querySelectorAll("select.pulldownselection");
-    const olInputEles: NodeListOf<HTMLOListElement> = test.querySelectorAll("ol.queryselection");
+    const olInputEles: NodeListOf<HTMLOListElement> = test.querySelectorAll("ol");
 
     let inputs: Input[] = []
 
@@ -61,14 +61,14 @@ function get(): Input[] {
         }
     }
 
-    // radioボタンの選択肢を集める
+    // radio or checkbox ボタンの選択肢を集める
     for (const ol of olInputEles) {
-        const radioEles: HTMLInputElement | null = ol.querySelector("input[type='radio'][checked]");
+        const radioEles: HTMLInputElement | null = ol.querySelector("input[checked]");
         if (radioEles === null) {
             const data: OlInput = {
                 qid: ol.id,
                 type: TypeOl,
-                radio: {
+                button: {
                     isSelected: false,
                     value: ""
                 }
@@ -79,7 +79,7 @@ function get(): Input[] {
             const data: OlInput = {
                 qid: ol.id,
                 type: TypeOl,
-                radio: {
+                button: {
                     isSelected: true,
                     value: radioEles.value
                 }
@@ -135,14 +135,14 @@ function insert(data: Input[]): void {
                 const olEle: HTMLOListElement = test.querySelector(`#${ipt.qid}`) as HTMLOListElement;
 
                 // 選択された選択肢があるならば、その選択肢を選択する
-                if (ipt.radio.isSelected) {
-                    const radioEle: HTMLInputElement = olEle.querySelector(`input[type='radio'][value='${ipt.radio.value}']`) as HTMLInputElement;
+                if (ipt.button.isSelected) {
+                    const radioEle: HTMLInputElement = olEle.querySelector(`input[value='${ipt.button.value}']`) as HTMLInputElement;
                     radioEle.setAttribute("checked", "null");
                 }
 
                 // 選択された選択肢がないならば、選択を取り消す
                 else {
-                    const radioEle: HTMLInputElement | null = olEle.querySelector(`input[type='radio'][checked]`);
+                    const radioEle: HTMLInputElement | null = olEle.querySelector(`input[checked]`);
                     if (radioEle !== null) radioEle.removeAttribute("checked");
                 }
                 break;
@@ -160,7 +160,7 @@ function clear(): void {
 
     const textInputEles: NodeListOf<HTMLInputElement> = test.querySelectorAll("input.queryinput");
     const selectInputEles: NodeListOf<HTMLSelectElement> = test.querySelectorAll("select.pulldownselection");
-    const olInputEles: NodeListOf<HTMLOListElement> = test.querySelectorAll("ol.queryselection");
+    const olInputEles: NodeListOf<HTMLOListElement> = test.querySelectorAll("ol");
 
     // 全ての入力を空にする
     for (const ipt of textInputEles) {
@@ -174,7 +174,7 @@ function clear(): void {
     }
     for (const ol of olInputEles) {
         // 選択されたradioボタンが存在した場合は、選択を取り消す
-        const radioEle: HTMLInputElement | null = ol.querySelector("input[type='radio'][checked]");
+        const radioEle: HTMLInputElement | null = ol.querySelector("input[checked]");
         if (radioEle !== null) radioEle.removeAttribute("checked");
     }
 }

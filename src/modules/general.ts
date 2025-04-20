@@ -43,7 +43,7 @@ interface SelectInput extends BaseInput {
 // ol要素
 interface OlInput extends BaseInput {
     type: typeof TypeOl,
-    radio: {
+    button: {
         isSelected: boolean,
         value: string
     }
