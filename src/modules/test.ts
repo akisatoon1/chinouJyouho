@@ -2,11 +2,11 @@
  * 小テストのページに関する操作を行う
  */
 
-import { input, TypeText, TypeSelect } from "./general"
+import { Input, TextInput, SelectInput, TypeText, TypeSelect } from "./general"
 export { get, insert, clear, preserve }
 
 // 小テストの既に入力されている値を取得する
-function get(): input[] {
+function get(): Input[] {
     // 小テストの入力を全て含む要素
     // 要素が存在しない場合は終了
     const test: HTMLDivElement | null = getTestPaperEle();
@@ -15,17 +15,18 @@ function get(): input[] {
     const textInputEles: NodeListOf<HTMLInputElement> = test.querySelectorAll("input.queryinput");
     const selectInputEles: NodeListOf<HTMLSelectElement> = test.querySelectorAll("select.pulldownselection");
 
-    let inputs: input[] = []
+    let inputs: Input[] = []
 
     // 入力されたテキストを集める
     for (const ipt of textInputEles) {
         const qid: string = ipt.name;
         const text: string = ipt.value;
-        inputs.push({
+        const data: TextInput = {
             qid: qid,
             type: TypeText,
             text: text
-        })
+        };
+        inputs.push(data);
     }
 
     // 選択された選択肢をあつめる
@@ -34,26 +35,28 @@ function get(): input[] {
 
         // 選択されたoption要素が存在しない場合は、選択されていないという選択を入力データに含める
         if (selectedEle === null) {
-            inputs.push({
+            const data: SelectInput = {
                 qid: ipt.name,
                 type: TypeSelect,
                 option: {
                     isSelected: false,
                     value: ""
                 }
-            });
+            };
+            inputs.push(data);
         }
 
         // 選択されたoption要素が存在する場合は、その選択肢を入力データに含める
         else {
-            inputs.push({
+            const data: SelectInput = {
                 qid: ipt.name,
                 type: TypeSelect,
                 option: {
                     isSelected: true,
                     value: selectedEle.value
                 }
-            });
+            };
+            inputs.push(data);
         }
     }
 
@@ -61,7 +64,7 @@ function get(): input[] {
 }
 
 // 小テストに入力する
-function insert(data: input[]): void {
+function insert(data: Input[]): void {
     // 小テストの入力を全て含む要素
     // 要素が存在しない場合は終了
     const test: HTMLDivElement | null = getTestPaperEle();
