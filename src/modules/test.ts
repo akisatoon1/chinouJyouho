@@ -2,15 +2,15 @@
  * 小テストのページに関する操作を行う
  */
 
-import { Input, TextInput, SelectInput, TypeText, TypeSelect } from "./general"
+import { Input, TextInput, SelectInput, TypeText, TypeSelect, ErrorInvalidPage } from "./general"
 export { get, insert, clear, preserve }
 
 // 小テストの既に入力されている値を取得する
 function get(): Input[] {
     // 小テストの入力を全て含む要素
-    // 要素が存在しない場合は終了
+    // 要素が存在しない場合はエラーを投げる
     const test: HTMLDivElement | null = getTestPaperEle();
-    if (test === null) return [];
+    if (test === null) throw ErrorInvalidPage;
 
     const textInputEles: NodeListOf<HTMLInputElement> = test.querySelectorAll("input.queryinput");
     const selectInputEles: NodeListOf<HTMLSelectElement> = test.querySelectorAll("select.pulldownselection");
@@ -66,9 +66,9 @@ function get(): Input[] {
 // 小テストに入力する
 function insert(data: Input[]): void {
     // 小テストの入力を全て含む要素
-    // 要素が存在しない場合は終了
+    // 要素が存在しない場合はエラーを投げる
     const test: HTMLDivElement | null = getTestPaperEle();
-    if (test === null) return;
+    if (test === null) throw ErrorInvalidPage;
 
     // 全てのデータを入力する
     for (const ipt of data) {
@@ -110,9 +110,9 @@ function insert(data: Input[]): void {
 // 小テストの入力を空にする
 function clear(): void {
     // 小テストの入力を全て含む要素
-    // 要素が存在しない場合は終了
+    // 要素が存在しない場合はエラーを投げる
     const test: HTMLDivElement | null = getTestPaperEle();
-    if (test === null) return;
+    if (test === null) throw ErrorInvalidPage;
 
     const textInputEles: NodeListOf<HTMLInputElement> = test.querySelectorAll("input.queryinput");
     const selectInputEles: NodeListOf<HTMLSelectElement> = test.querySelectorAll("select.pulldownselection");

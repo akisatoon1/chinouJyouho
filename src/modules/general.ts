@@ -2,7 +2,10 @@
  * moduleで使う共通の型や値をまとめている
  */
 
-export { TypeText, TypeSelect, Input, TextInput, SelectInput, storageData }
+export { TypeText, TypeSelect, Input, TextInput, SelectInput, storageData, ErrorInvalidPage }
+
+// エラー定義
+const ErrorInvalidPage: Error = new Error("Invalid page");
 
 /**
  * 入力のhtml要素はid属性で一意に識別できる.
