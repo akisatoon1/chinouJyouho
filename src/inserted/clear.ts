@@ -4,7 +4,7 @@ import { clear, preserve } from "../modules/test"
 // 元の入力を削除し、保存する
 try {
     clear();
-    alert("データをクリアしました")
+    console.log("データをクリアしました");
     preserve();
 } catch (error) {
     if (error === ErrorInvalidPage) {

@@ -7,7 +7,7 @@ import { insert, preserve } from "../modules/test"
     try {
         const inputs = await getFromStorage();
         insert(inputs);
-        alert("挿入しました");
+        console.log("挿入しました");
         preserve();
     } catch (error) {
         if (error === ErrorInvalidPage) {

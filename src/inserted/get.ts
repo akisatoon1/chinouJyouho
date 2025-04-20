@@ -4,7 +4,9 @@ import { get } from "../modules/test"
 
 // 小テストのデータを取得し、local storageに保存する
 try {
-    saveToStorage(get());
+    saveToStorage(get()).then(() => {
+        console.log("ストレージに保存しました");
+    });
 } catch (error) {
     if (error === ErrorInvalidPage) {
         console.error("小テストのページで実行して下さい:", error);
