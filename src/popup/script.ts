@@ -3,25 +3,10 @@ function realPath(path: string) {
     return `${prefix}${path}`;
 }
 
+// ボタン要素の取得
 const buttonGet: HTMLButtonElement = document.querySelector("button#get") as HTMLButtonElement;
 const buttonInsert: HTMLButtonElement = document.querySelector("button#insert") as HTMLButtonElement;
 const buttonClear: HTMLButtonElement = document.querySelector("button#clear") as HTMLButtonElement;
-
-const radioAuto: HTMLInputElement = document.querySelector("input#auto") as HTMLInputElement;
-const radioManual: HTMLInputElement = document.querySelector("input#manual") as HTMLInputElement;
-const textInputContainer: HTMLDivElement = document.querySelector("div#textInput") as HTMLDivElement;
-
-// 入力データを自動取得の時は、テキストエリアを非表示にする
-radioAuto.addEventListener("change", (event) => {
-    const target = event.target as HTMLInputElement;
-    textInputContainer.style.display = target.checked ? "none" : "block";
-});
-
-// 入力データを手動入力の時は、テキストエリアを表示する
-radioManual.addEventListener("change", (event) => {
-    const target = event.target as HTMLInputElement;
-    textInputContainer.style.display = target.checked ? "block" : "none";
-});
 
 // 小テストのデータを取得して保存する
 buttonGet.addEventListener("click", async () => {
@@ -60,4 +45,4 @@ async function getCurrentTabId(): Promise<number> {
     return tab.id as number;
 }
 
-console.log("entry.js loaded.")
+console.log("script.js loaded."); 

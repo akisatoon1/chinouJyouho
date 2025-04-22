@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'entry': './src/entry.ts',
+        'popup': ['./src/popup/script.ts', './src/popup/ui.ts'],
         'inserted/get': './src/inserted/get.ts',
         'inserted/insert': './src/inserted/insert.ts',
         'inserted/clear': './src/inserted/clear.ts',
