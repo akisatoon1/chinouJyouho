@@ -1,4 +1,4 @@
-import { buttonGet, buttonInsert, buttonClear, radioAuto, jsonInput } from './elements';
+import { buttonGet, buttonInsert, buttonClear, radioManual, jsonInput } from './elements';
 import { saveToStorage } from '../modules/storage';
 import { Input } from '../modules/general';
 
@@ -21,26 +21,18 @@ buttonGet.addEventListener("click", async () => {
 buttonInsert.addEventListener("click", async () => {
     const tabId: number = await getCurrentTabId();
 
-    if (radioAuto.checked) {
-        // 自動取得モード: 従来通りの処理
-        chrome.scripting
-            .executeScript({
-                target: { tabId: tabId },
-                files: [realPath("insert.js")],
-            });
-    } else {
+    if (radioManual.checked) {
         // 手動入力モード: テキストエリアの内容を処理
         const inputData = JSON.parse(jsonInput.value) as Input[];
         // ストレージにデータを保存
         await saveToStorage(inputData);
-
-        // 保存後に挿入処理を実行
-        chrome.scripting
-            .executeScript({
-                target: { tabId: tabId },
-                files: [realPath("insert.js")],
-            });
     }
+
+    chrome.scripting
+        .executeScript({
+            target: { tabId: tabId },
+            files: [realPath("insert.js")],
+        });
 });
 
 // 小テストのデータを入力する
