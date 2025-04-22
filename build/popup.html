@@ -3,11 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
+    <style>
+        .input-container {
+            margin: 10px 0;
+            display: none;
+        }
+
+        .radio-group {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
     <button id="get">取得</button>
     <button id="insert">挿入</button>
+    <div class="radio-group">
+        <input type="radio" id="auto" name="insertType" value="auto" checked>
+        <label for="auto">自動取得したデータ</label>
+        <input type="radio" id="manual" name="insertType" value="manual">
+        <label for="manual">手動入力したデータ</label>
+    </div>
+    <div id="textInput" class="input-container">
+        <textarea id="jsonInput" rows="10" cols="50" placeholder="コピーした入力データをペーストしてください"></textarea>
+    </div>
     <button id="clear">クリア</button>
     <script src="./js/entry.js"></script>
 </body>
