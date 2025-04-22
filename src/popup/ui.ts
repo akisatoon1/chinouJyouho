@@ -1,7 +1,4 @@
-// ポップアップのUI要素
-const radioAuto: HTMLInputElement = document.querySelector("input#auto") as HTMLInputElement;
-const radioManual: HTMLInputElement = document.querySelector("input#manual") as HTMLInputElement;
-const textInputContainer: HTMLDivElement = document.querySelector("div#textInput") as HTMLDivElement;
+import { radioAuto, radioManual, textInputContainer } from './elements';
 
 // 入力データを自動取得の時は、テキストエリアを非表示にする
 radioAuto.addEventListener("change", (event) => {

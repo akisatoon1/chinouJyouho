@@ -1,12 +1,11 @@
+import { buttonGet, buttonInsert, buttonClear, radioAuto, jsonInput } from './elements';
+import { saveToStorage } from '../modules/storage';
+import { Input } from '../modules/general';
+
 function realPath(path: string) {
     const prefix: string = "js/inserted/";
     return `${prefix}${path}`;
 }
-
-// ボタン要素の取得
-const buttonGet: HTMLButtonElement = document.querySelector("button#get") as HTMLButtonElement;
-const buttonInsert: HTMLButtonElement = document.querySelector("button#insert") as HTMLButtonElement;
-const buttonClear: HTMLButtonElement = document.querySelector("button#clear") as HTMLButtonElement;
 
 // 小テストのデータを取得して保存する
 buttonGet.addEventListener("click", async () => {
@@ -21,11 +20,27 @@ buttonGet.addEventListener("click", async () => {
 // 小テストのデータを入力する
 buttonInsert.addEventListener("click", async () => {
     const tabId: number = await getCurrentTabId();
-    chrome.scripting
-        .executeScript({
-            target: { tabId: tabId },
-            files: [realPath("insert.js")],
-        })
+
+    if (radioAuto.checked) {
+        // 自動取得モード: 従来通りの処理
+        chrome.scripting
+            .executeScript({
+                target: { tabId: tabId },
+                files: [realPath("insert.js")],
+            });
+    } else {
+        // 手動入力モード: テキストエリアの内容を処理
+        const inputData = JSON.parse(jsonInput.value) as Input[];
+        // ストレージにデータを保存
+        await saveToStorage(inputData);
+
+        // 保存後に挿入処理を実行
+        chrome.scripting
+            .executeScript({
+                target: { tabId: tabId },
+                files: [realPath("insert.js")],
+            });
+    }
 });
 
 // 小テストのデータを入力する
