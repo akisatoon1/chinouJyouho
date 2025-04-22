@@ -195,4 +195,3 @@ function preserve(): void {
 function getTestPaperEle(): HTMLDivElement | null {
     return document.querySelector("div.querypaper");
 }
-

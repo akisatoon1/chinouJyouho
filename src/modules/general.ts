@@ -2,7 +2,7 @@
  * moduleで使う共通の型や値をまとめている
  */
 
-export { TypeText, TypeSelect, TypeOl, Input, TextInput, SelectInput, OlInput, storageData, ErrorInvalidPage }
+export { TypeText, TypeSelect, TypeOl, Input, TextInput, SelectInput, OlInput, StorageData, ErrorInvalidPage }
 
 // エラー定義
 const ErrorInvalidPage: Error = new Error("Invalid page");
@@ -52,6 +52,6 @@ interface OlInput extends BaseInput {
 type Input = TextInput | SelectInput | OlInput
 
 // local storage内でのデータ形式
-interface storageData {
+interface StorageData {
     test: Input[]
 }
