@@ -128,19 +128,18 @@ function insert(data: Input[]): void {
                 // ここではidを使って探す
                 const olEle: HTMLOListElement = test.querySelector(`#${ipt.qid}`) as HTMLOListElement;
 
-                // 選択された選択肢があるならば、その選択肢を選択する
-                if (ipt.button.isSelected) {
-                    const radioEle: HTMLInputElement = olEle.querySelector(`input[value='${ipt.button.value}']`) as HTMLInputElement;
-                    radioEle.setAttribute("checked", "null");
+                // 全てのradio or checkboxの選択状態を更新する
+                for (const button of ipt.buttons) {
+                    const inputEle: HTMLInputElement = olEle.querySelector(`input[value='${button.value}']`) as HTMLInputElement;
+                    if (button.isSelected) {
+                        inputEle.setAttribute("checked", "null");
+                    }
+                    else {
+                        inputEle.removeAttribute("checked");
+                    }
                 }
 
-                // 選択された選択肢がないならば、選択を取り消す
-                else {
-                    const radioEle: HTMLInputElement | null = olEle.querySelector(`input[checked]`);
-                    if (radioEle !== null) radioEle.removeAttribute("checked");
-                }
                 break;
-
         }
     }
 }
