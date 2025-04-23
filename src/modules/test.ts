@@ -63,29 +63,23 @@ function get(): Input[] {
 
     // radio or checkbox ボタンの選択肢を集める
     for (const ol of olInputEles) {
-        const radioEles: HTMLInputElement | null = ol.querySelector("input[checked]");
-        if (radioEles === null) {
-            const data: OlInput = {
-                qid: ol.id,
-                type: TypeOl,
-                button: {
-                    isSelected: false,
-                    value: ""
-                }
-            };
-            inputs.push(data);
+        const data: OlInput = {
+            qid: ol.id,
+            type: TypeOl,
+            buttons: []
+        };
+
+        // radio or checkbox typeのinput要素の情報を集める
+        const inputEles: NodeListOf<HTMLInputElement> = ol.querySelectorAll("input");
+        for (const inputEle of inputEles) {
+            data.buttons.push({
+                isSelected: inputEle.checked,
+                value: inputEle.value
+            });
         }
-        else {
-            const data: OlInput = {
-                qid: ol.id,
-                type: TypeOl,
-                button: {
-                    isSelected: true,
-                    value: radioEles.value
-                }
-            };
-            inputs.push(data);
-        }
+
+        // ol要素の情報を取得データに加える
+        inputs.push(data);
     }
 
     return inputs;
