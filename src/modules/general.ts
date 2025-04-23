@@ -43,10 +43,11 @@ interface SelectInput extends BaseInput {
 // ol要素
 interface OlInput extends BaseInput {
     type: typeof TypeOl,
-    button: {
+    buttons: {
+        // radio or checkbox typeのinput要素
         isSelected: boolean,
         value: string
-    }
+    }[]
 }
 
 type Input = TextInput | SelectInput | OlInput
