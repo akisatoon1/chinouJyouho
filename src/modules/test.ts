@@ -173,9 +173,11 @@ function clear(): void {
         if (selectedEle !== null) selectedEle.removeAttribute("selected");
     }
     for (const ol of olInputEles) {
-        // 選択されたradioボタンが存在した場合は、選択を取り消す
-        const radioEle: HTMLInputElement | null = ol.querySelector("input[checked]");
-        if (radioEle !== null) radioEle.removeAttribute("checked");
+        // input要素ボタンの選択を全て取り消す
+        const inputEles: NodeListOf<HTMLInputElement> = ol.querySelectorAll("input");
+        for (const inputEle of inputEles) {
+            inputEle.removeAttribute("checked");
+        }
     }
 }
 
