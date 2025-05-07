@@ -109,16 +109,17 @@ function insert(data: Input[]): void {
                 // select要素を見つける
                 const selectEle: HTMLSelectElement = test.querySelector(selector) as HTMLSelectElement;
 
-                // 選択された選択肢があるならば、その選択肢を選択する
                 if (ipt.option.isSelected) {
+                    // 選択された選択肢があるならば、その選択肢を選択する
                     const optionEle: HTMLOptionElement = selectEle.querySelector(`option[value='${ipt.option.value}']`) as HTMLOptionElement;
-                    optionEle.setAttribute("selected", "null");
+                    optionEle.selected = true;
                 }
-
-                // 選択された選択肢がないならば、選択を取り消す
                 else {
-                    const optionEle: HTMLOptionElement | null = selectEle.querySelector(`option[selected]`);
-                    if (optionEle !== null) optionEle.removeAttribute("selected");
+                    // 選択された選択肢がないならば、選択を取り消す
+                    const optionEles: NodeListOf<HTMLOptionElement> = selectEle.querySelectorAll(`option`);
+                    for (const optionEle of optionEles) {
+                        optionEle.selected = false;
+                    }
                 }
                 break;
 
@@ -130,12 +131,7 @@ function insert(data: Input[]): void {
                 // 全てのradio or checkboxの選択状態を更新する
                 for (const button of ipt.buttons) {
                     const inputEle: HTMLInputElement = olEle.querySelector(`input[value='${button.value}']`) as HTMLInputElement;
-                    if (button.isSelected) {
-                        inputEle.setAttribute("checked", "null");
-                    }
-                    else {
-                        inputEle.removeAttribute("checked");
-                    }
+                    inputEle.checked = button.isSelected;
                 }
 
                 break;
