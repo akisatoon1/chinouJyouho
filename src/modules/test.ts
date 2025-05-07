@@ -32,33 +32,32 @@ function get(): Input[] {
 
     // 選択された選択肢をあつめる
     for (const ipt of selectInputEles) {
-        const selectedEle: HTMLOptionElement | null = ipt.querySelector("option[selected]");
+        const optionEles: NodeListOf<HTMLOptionElement> = ipt.querySelectorAll("option");
 
-        // 選択されたoption要素が存在しない場合は、選択されていないという選択を入力データに含める
-        if (selectedEle === null) {
-            const data: SelectInput = {
-                qid: ipt.name,
-                type: TypeSelect,
-                option: {
-                    isSelected: false,
-                    value: ""
-                }
-            };
-            inputs.push(data);
+        // 選択されたoptionを取得する. 
+        // 存在しない場合も記す
+        let data: SelectInput = {
+            qid: ipt.name,
+            type: TypeSelect,
+            option: {
+                isSelected: false,
+                value: ""
+            }
+        };
+        for (const optionEle of optionEles) {
+            if (optionEle.selected) {
+                data = {
+                    qid: ipt.name,
+                    type: TypeSelect,
+                    option: {
+                        isSelected: true,
+                        value: optionEle.value
+                    }
+                };
+                break;
+            }
         }
-
-        // 選択されたoption要素が存在する場合は、その選択肢を入力データに含める
-        else {
-            const data: SelectInput = {
-                qid: ipt.name,
-                type: TypeSelect,
-                option: {
-                    isSelected: true,
-                    value: selectedEle.value
-                }
-            };
-            inputs.push(data);
-        }
+        inputs.push(data);
     }
 
     // radio or checkbox ボタンの選択肢を集める
