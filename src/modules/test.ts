@@ -161,14 +161,16 @@ function clear(): void {
     }
     for (const ipt of selectInputEles) {
         // 選択されたoptionが存在した場合は、選択を取り消す
-        const selectedEle: HTMLOptionElement | null = ipt.querySelector("option[selected]");
-        if (selectedEle !== null) selectedEle.removeAttribute("selected");
+        const optionEles: NodeListOf<HTMLOptionElement> = ipt.querySelectorAll("option");
+        for (const optionEle of optionEles) {
+            optionEle.selected = false;
+        }
     }
     for (const ol of olInputEles) {
         // input要素ボタンの選択を全て取り消す
         const inputEles: NodeListOf<HTMLInputElement> = ol.querySelectorAll("input");
         for (const inputEle of inputEles) {
-            inputEle.removeAttribute("checked");
+            inputEle.checked = false;
         }
     }
 }
