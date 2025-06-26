@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "manaba小テスト入力",
     "description": "小テストの答えを他の人と共有して、自動で入力します。この拡張機能のアイコンのボタンを押して操作します。",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "action": {
         "default_popup": "popup.html"
     },
