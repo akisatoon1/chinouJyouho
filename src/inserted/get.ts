@@ -37,11 +37,6 @@ function displayTestData(data: object) {
 
     displayDiv.appendChild(headerContainer);
 
-    // データを表示
-    const pre = document.createElement('pre');
-    pre.textContent = jsonString;
-    displayDiv.appendChild(pre);
-
     document.body.appendChild(displayDiv);
 }
 
