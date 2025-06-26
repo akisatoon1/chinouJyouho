@@ -1,10 +1,11 @@
 import { ErrorInvalidPage } from "../modules/general"
 import { saveToStorage } from "../modules/storage"
 import { get } from "../modules/test"
+import { compress } from "../modules/compress"
 
 // データをJSON文字列に変換してページに表示する
 function displayTestData(data: object) {
-    const jsonString = JSON.stringify(data, null, 2);
+    const jsonString = compress(JSON.stringify(data, null, 2));
 
     // ページに表示用の要素を追加
     const displayDiv = document.createElement('div');
